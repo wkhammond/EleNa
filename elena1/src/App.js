@@ -4,20 +4,31 @@ import './App.css';
 import './index.css';
 import './maps/map.js';
 import './maps/markers.js';
-import QueryForm from './components/Query'
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import Main from './views/Main'
+import { Map, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet';
 
 
 function App() {
     return (
-        <div>
-            <h1>Elevation Navigation</h1>
-
-            <p>Input your starting and ending locations, and answer the additional questions to get a route. </p>
-
-            <QueryForm/>
-        </div>
+        // <div > {/*style={{width: "100%",height: "100%"}}>*/}
+            <Map center={[51.505, -0.09]} zoom={13} zoomControl={false}>
+                <TileLayer
+                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <ZoomControl position="topright" />
+            </Map>
+        // </div>
     );
 }
+const ZoomControlExample = () => (
+    <Map center={[51.505, -0.09]} zoom={13} zoomControl={false}>
+      <TileLayer
+        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <ZoomControl position="topright" />
+    </Map>
+  )
 
-export default App;
+export default ZoomControlExample;
