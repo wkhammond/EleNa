@@ -1,6 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './index.css';
+import './maps/map.js';
+import './maps/markers.js';
+import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+
 
 function App() {
   return (
