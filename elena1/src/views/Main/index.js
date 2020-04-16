@@ -4,7 +4,9 @@ import CustomMap from '../../components/Map'
 import { withStyles } from '@material-ui/core/styles';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import {
+    Card,
     Fab,
+    TextField
 } from '@material-ui/core';
 
 const styles = theme => ({
@@ -25,6 +27,7 @@ class Main extends React.Component {
                     <NavigationIcon className={classes.extendedIcon} />
                     Navigate
                 </Fab>
+                <QueryForm />
             </div>
         )
     }
