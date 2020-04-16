@@ -9,14 +9,14 @@ import {
     TextField
 } from '@material-ui/core';
 
-// const styles = theme => ({
-//     fab: {
-//         position: 'fixed',
-//         zIndex: 5,
-//         bottom: theme.spacing(2),
-//         right: theme.spacing(2),
-//     }
-// })
+const styles = theme => ({
+    // fab: {
+    //     position: 'fixed',
+    //     zIndex: 5,
+    //     bottom: theme.spacing(2),
+    //     right: theme.spacing(2),
+    // }
+})
 class Main extends React.Component {
     render() {
         const { classes } = this.props;
