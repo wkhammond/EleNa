@@ -10,8 +10,9 @@ import {
     InputBase,
     Paper,
     TextField,
+    Slider,
 } from '@material-ui/core';
-
+import width from '@material-ui/system';
 import DirectionsIcon from '@material-ui/icons/Directions';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -62,9 +63,8 @@ class QueryForm extends React.Component {
                         placeholder="Enter your origin"
                         inputProps={{ 'aria-label': 'enter your origin' }}
                     />
-                    <Divider className={classes.divider} orientation="vertical" />
-                    <IconButton className={classes.iconButton} aria-label="menu" onClick={() => console.log("I'm showing a slider option! But that hasn't been implemented yet...")}>
-                        <MenuIcon />
+                    <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={() => console.log("I'm finding your destination! (but no....)")}>
+                        <SearchIcon />
                     </IconButton>
                 </div>
                 <div className={classes.root}>
@@ -73,14 +73,22 @@ class QueryForm extends React.Component {
                         placeholder="Enter your destination"
                         inputProps={{ 'aria-label': 'enter your destination' }}
                     />
-                    <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={() => console.log("I'm finding your destination! (but no....)")}>
-                        <SearchIcon />
-                    </IconButton>
-                    <Divider className={classes.divider} orientation="vertical" />
                     <IconButton color="primary" className={classes.iconButton} aria-label="directions" onClick={() => console.log("I'm routing! (Not really)")}>
                         <DirectionsIcon />
                     </IconButton>
                 </div>
+                <div> How important are elevation changes?</div>
+                <div className={classes.root}>
+                    <Slider
+                        defaultValue={0.50}
+                        aria-label="How important are elevation changes?"
+                        step={0.25}
+                        marks
+                        min={0}
+                        max={1}
+                        valueLabelDisplay="auto"
+                        />
+                    </div>
             </Card>
         );
     }
