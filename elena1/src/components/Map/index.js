@@ -41,11 +41,10 @@ class CustomMap extends React.Component {
 
         return (
             <div>
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css"></link>
-            <Map center={[45.4, -75.7]} zoom={12} >
+            <Map center={[45.4, -75.7]} zoom={13} zoomControl={false}>
                 <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' 
+                    url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                 />
             </Map>
             </div>

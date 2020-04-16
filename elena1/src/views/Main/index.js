@@ -2,29 +2,28 @@ import React from 'react';
 import QueryForm from '../../components/Query'
 import CustomMap from '../../components/Map'
 import { withStyles } from '@material-ui/core/styles';
+import NavigationIcon from '@material-ui/icons/Navigation';
 import {
-    Grid
+    Fab,
 } from '@material-ui/core';
 
 const styles = theme => ({
-    // root: {
-    //     flexGrow: 1,
-    // },
-    // gridItem: {
-    //     padding: theme.spacing(3),
-    //     textAlign: 'center',
-    //     color: theme.palette.text.secondary,
-    // },
+    fab: {
+        position: 'fixed',
+        bottom: theme.spacing(2),
+        right: theme.spacing(2),
+    }
 })
 class Main extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <div className={classes.root} style={{width: "100%",height: "100%"}}>
+            <div className={classes.root}>
                 <CustomMap />
-                {/* <div>
-                    <QueryForm />
-                </div> */}
+                {/* <Fab variant="extended" className={classes.fab}>
+                    <NavigationIcon className={classes.extendedIcon} />
+                    Navigate
+                </Fab> */}
             </div>
         )
     }
