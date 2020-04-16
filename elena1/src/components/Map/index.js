@@ -45,7 +45,7 @@ class CustomMap extends React.Component {
 
         return (
             <div>
-            <Map center={[45.4, -75.7]} zoom={13} zoomControl={false} className={classes.map}>
+            <Map center={[42.356271, -71.062269]} zoom={14} zoomControl={false} className={classes.map}>
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' 
                     url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
