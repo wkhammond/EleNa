@@ -23,10 +23,10 @@ class Main extends React.Component {
         return (
             <div className={classes.root}>
                 <CustomMap />
-                <Fab variant="extended" className={classes.fab}>
+                {/* <Fab variant="extended" className={classes.fab}>
                     <NavigationIcon className={classes.extendedIcon} />
                     Navigate
-                </Fab>
+                </Fab> */}
                 <QueryForm />
             </div>
         )
