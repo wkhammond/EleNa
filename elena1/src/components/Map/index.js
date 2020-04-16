@@ -8,6 +8,9 @@ import {
 } from '@material-ui/core';
 
 const styles = theme => ({
+    map: {
+        zIndex: 1
+    }
 })
 
 class CustomMap extends React.Component {
@@ -15,6 +18,7 @@ class CustomMap extends React.Component {
 
 
     render() {
+        const { classes } = this.props;
 
         // let selectedNodeArray = [];
         // let unselectedNodeArray = [];
@@ -41,7 +45,7 @@ class CustomMap extends React.Component {
 
         return (
             <div>
-            <Map center={[45.4, -75.7]} zoom={13} zoomControl={false}>
+            <Map center={[45.4, -75.7]} zoom={13} zoomControl={false} className={classes.map}>
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' 
                     url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'

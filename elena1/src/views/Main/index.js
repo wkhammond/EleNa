@@ -10,6 +10,7 @@ import {
 const styles = theme => ({
     fab: {
         position: 'fixed',
+        zIndex: 5,
         bottom: theme.spacing(2),
         right: theme.spacing(2),
     }
@@ -20,10 +21,10 @@ class Main extends React.Component {
         return (
             <div className={classes.root}>
                 <CustomMap />
-                {/* <Fab variant="extended" className={classes.fab}>
+                <Fab variant="extended" className={classes.fab}>
                     <NavigationIcon className={classes.extendedIcon} />
                     Navigate
-                </Fab> */}
+                </Fab>
             </div>
         )
     }
