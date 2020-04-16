@@ -10,12 +10,17 @@ import {
     InputBase,
     Paper,
     TextField,
+    Typography,
     Slider,
+    ExpansionPanelSummary,
+    ExpansionPanel,
+    ExpansionPanelDetails,
 } from '@material-ui/core';
 import width from '@material-ui/system';
 import DirectionsIcon from '@material-ui/icons/Directions';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 const styles = theme => ({
     root: {
@@ -23,6 +28,11 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center',
         width: 400,
+    },
+    slider: {
+        marginLeft: theme.spacing(3),
+        marginRight: theme.spacing(3),
+        marginBottom: theme.spacing(1.5),
     },
     input: {
         marginLeft: theme.spacing(1),
@@ -77,18 +87,29 @@ class QueryForm extends React.Component {
                         <DirectionsIcon />
                     </IconButton>
                 </div>
-                <div> How important are elevation changes?</div>
-                <div className={classes.root}>
-                    <Slider
-                        defaultValue={0.50}
-                        aria-label="How important are elevation changes?"
-                        step={0.25}
-                        marks
-                        min={0}
-                        max={1}
-                        valueLabelDisplay="auto"
-                        />
-                    </div>
+                <div>
+                    <ExpansionPanel>
+                        <ExpansionPanelSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography className={classes.heading} style={{textAlign: "right"}}>{"How important are elevation changes?"}</Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            <Slider
+                                className={classes.slider}
+                                defaultValue={0.50}
+                                aria-label="How important are elevation changes?"
+                                step={0.25}
+                                marks
+                                min={0}
+                                max={1}
+                                valueLabelDisplay="auto"
+                            />
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                </div>
             </Card>
         );
     }
