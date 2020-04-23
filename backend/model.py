@@ -5,10 +5,6 @@ import requests
 import math
 import time
 
-G = ox.graph_from_place('Boston, Masssachusetts', network_type='drive')
-
-print("done")
-
 
 def get_path(origin, destination, weight):
     """Returns a path from origin to destination taking elevation into account
@@ -40,6 +36,12 @@ def get_path(origin, destination, weight):
     """
     
     graph = ox.graph_from_place('Boston, Masssachusetts', network_type='walk')
+    opoint = ox.geocode(origin)
+    dpoint = ox.geocode(destination)
+    print(opoint)
+    print(dpoint)
+    o_node = ox.get_nearest_node(graph, opoint)
+    d_node = ox.get_nearest_node(graph, dpoint)
     graph = set_elevation(graph)
     graph = ox.add_edge_grades(graph)
     proj = ox.project_graph(graph) #project graph to UTM to increase accuracy
@@ -55,8 +57,9 @@ def get_path(origin, destination, weight):
     
     
     weight_choice = "elev%d" % weight
-    route = nx.shortest_path(proj, source=origin, target=destination, 
+    route = nx.shortest_path(proj, source=o_node, target=d_node, 
                                        weight=weight_choice)
+    fig, ax = ox.plot_graph_route(proj, route, node_size=0)
     return route
     
     
@@ -110,7 +113,7 @@ def set_elevation(graph):
     open-elevation API.
     """
     # open-elevation API endpoint
-    url_template = 'https://api.open-elevation.com/api/v1/lookup?locations='
+    url_template = 'https://api.open-elevation.com/api/v1/lookup\?locations\='
     max_locations_per_batch = 350
 
     # make a pandas series of all the nodes' coordinates as 'lat,lng'
@@ -124,7 +127,7 @@ def set_elevation(graph):
     results = []
     for i in range(0, len(node_points), max_locations_per_batch):
         chunk = node_points.iloc[i : i + max_locations_per_batch]
-        locations = '|'.join(chunk)
+        locations = '\|'.join(chunk)
         url = url_template.format(locations)
 
         # check if this request is already in the cache (if global use_cache=True)
@@ -155,6 +158,8 @@ def set_elevation(graph):
     print('Added elevation data to all nodes.')
 
     return graph
+
+get_path("1 Longfellow Place, Boston, MA, 02114", "139 Tremont St, Boston, MA 02108", 50)
     
     
     
