@@ -113,8 +113,8 @@ def set_elevation(graph):
     open-elevation API.
     """
     # open-elevation API endpoint
-    url_template = 'https://api.open-elevation.com/api/v1/lookup\?locations\='
-    max_locations_per_batch = 350
+    url_template = 'https://api.open-elevation.com/api/v1/lookup?locations={}'
+    max_locations_per_batch = 50
 
     # make a pandas series of all the nodes' coordinates as 'lat,lng'
     # round coorindates to 5 decimal places (approx 1 meter) to be able to fit
@@ -127,7 +127,7 @@ def set_elevation(graph):
     results = []
     for i in range(0, len(node_points), max_locations_per_batch):
         chunk = node_points.iloc[i : i + max_locations_per_batch]
-        locations = '\|'.join(chunk)
+        locations = '|'.join(chunk)
         url = url_template.format(locations)
 
         # check if this request is already in the cache (if global use_cache=True)
@@ -140,6 +140,7 @@ def set_elevation(graph):
         except Exception as e:
             print(e)
             print('Server responded with {}: {}'.format(response.status_code, response.reason))
+            return
 
         # append these elevation results to the list of all results
         results.extend(response_json['results'])
