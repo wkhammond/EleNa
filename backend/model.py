@@ -12,7 +12,7 @@ print("done")
 
 def get_path(origin, destination, weight):
     """Returns a path from origin to destination taking elevation into account
-    per the parameter 'weight'.
+    per the parameter 'weight' after generating model.
 
     Parameters
     ----------
@@ -29,7 +29,7 @@ def get_path(origin, destination, weight):
     Returns
     -------
     graph: NetworkX graph
-        Returns a 
+        Returns a grapy representing the route.
 
     Notes
     -----
@@ -39,30 +39,12 @@ def get_path(origin, destination, weight):
         
     """
     
-    G = generate_model()
-    
-    
-    return 1
-
-def generate_model():
-    """Generates a graph of Boston, including elevation data and custom 
-    navigation weights for our possible values.
-
-    Returns
-    -------
-    graph: NetworkX graph pertaining to Boston
-
-    Notes
-    -----
-    Current implementation assumes walking. Future versions will involve 
-    generating and caching different kinds of 
-        
-    """
     graph = ox.graph_from_place('Boston, Masssachusetts', network_type='walk')
     graph = set_elevation(graph)
     graph = ox.add_edge_grades(graph)
     proj = ox.project_graph(graph) #project graph to UTM to increase accuracy
     
+    #here, we populate custom fields for our weighed inclines
     for u, v, k, data in proj.edges(keys=True, data=True): 
         elevation_values = weight_function(data['grade_abs'], data['length'])
         data['elev0'] = elevation_values[0]
@@ -72,6 +54,10 @@ def generate_model():
         data['elev100'] = elevation_values[4]
     
     
+    weight_choice = "elev%d" % weight
+    route = nx.shortest_path(proj, source=origin, target=destination, 
+                                       weight=weight_choice)
+    return route
     
     
 def weight_function(rise, run):
