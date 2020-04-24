@@ -36,12 +36,8 @@ def get_path(origin, destination, weight):
     """
     
     graph = ox.graph_from_place('Boston, Masssachusetts', network_type='walk')
-    opoint = ox.geocode(origin)
-    dpoint = ox.geocode(destination)
-    print(opoint)
-    print(dpoint)
-    o_node = ox.get_nearest_node(graph, opoint)
-    d_node = ox.get_nearest_node(graph, dpoint)
+    o_node = ox.get_nearest_node(graph, ox.geocode(origin))
+    d_node = ox.get_nearest_node(graph, ox.geocode(destination))
     graph = set_elevation(graph)
     graph = ox.add_edge_grades(graph)
     proj = ox.project_graph(graph) #project graph to UTM to increase accuracy
