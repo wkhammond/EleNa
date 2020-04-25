@@ -1,3 +1,9 @@
+# VS Code
+.vscode
+
+# Figures
+fig*
+
 # Logs
 logs
 *.log
