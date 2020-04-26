@@ -39,9 +39,10 @@ def get_path(origin, destination, weight, graph=None):
     dpoint = ox.geocode(destination)
     print(opoint)
     print(dpoint)
-    o_node = ox.get_nearest_node(graph, opoint)
-    d_node = ox.get_nearest_node(graph, dpoint)
-    
+    o_node = ox.get_nearest_node(graph, tuple(reversed(opoint)))
+    d_node = ox.get_nearest_node(graph, tuple(reversed(dpoint)))
+    print(o_node)
+    print(d_node)
     weight_choice = "elev{weight}".format(weight=weight)
     route = nx.shortest_path(graph, source=o_node, target=d_node, 
                                        weight=weight_choice)
