@@ -6,7 +6,7 @@ import math
 import time
 
 
-def get_path(origin, destination, weight):
+def get_path(origin, destination, weight, graph=None):
     """Returns a path from origin to destination taking elevation into account
     per the parameter 'weight' after generating model.
 
@@ -34,7 +34,7 @@ def get_path(origin, destination, weight):
     caching the graph/map and loading it from disk.
         
     """
-    graph = ox.load_graphml("boston-elevation-graph")
+    graph = ox.load_graphml("boston-elevation-graph") if graph=None else graph
     opoint = ox.geocode(origin)
     dpoint = ox.geocode(destination)
     print(opoint)
