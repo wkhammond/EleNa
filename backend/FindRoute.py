@@ -39,17 +39,15 @@ def get_path(origin, destination, weight):
     dpoint = ox.geocode(destination)
     print(opoint)
     print(dpoint)
-    o_node = ox.get_nearest_node(graph, opoint)
-    d_node = ox.get_nearest_node(graph, dpoint)
-    
+    o_node = ox.get_nearest_node(graph, tuple(reversed(opoint)))
+    d_node = ox.get_nearest_node(graph, tuple(reversed(dpoint)))
+    print(o_node)
+    print(d_node)
     weight_choice = "elev{weight}".format(weight=weight)
     route = nx.shortest_path(graph, source=o_node, target=d_node, 
                                        weight=weight_choice)
     fig, ax = ox.plot_graph_route(graph, route, node_size=0)
     return route
 
-get_path("1 Longfellow Place, Boston, MA, 02114", "139 Tremont St, Boston, MA 02108", 50)
-    
-    
-    
-    
+a = get_path("1 Longfellow Place, Boston, MA, 02114", "636 Summer St, Boston, MA 02210", 50)
+print(a)
