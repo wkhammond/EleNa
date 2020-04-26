@@ -60,17 +60,14 @@ const styles = theme => ({
 class QueryForm extends React.Component {
     constructor(props) {
         super(props); // This line is always required to be the first line
-        this.state = { value: 50
+        this.state = {
         }
     }
-    onChange = event => {
-      this.setState({ value: event.value });
-    };
 
     sendquery() {
         var start = document.getElementById("origin").value;
         var end = document.getElementById("destination").value;
-        var importance = this.state.value;
+        var importance = 50;
         var url = "http://54.172.173.217:8000/?start=" + start + "&end=" + end + "&elev=" + importance;
         var finalurl = encodeURI(url)
         axios.get(finalurl).then(res => {
@@ -121,8 +118,6 @@ class QueryForm extends React.Component {
                                 min={0}
                                 max={1}
                                 valueLabelDisplay="auto"
-                                onChange={this.onChange}
-                                value={this.state.value}
                             />
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
