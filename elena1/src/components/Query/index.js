@@ -21,6 +21,7 @@ import DirectionsIcon from '@material-ui/icons/Directions';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import axios from 'axios'
 
 const styles = theme => ({
     root: {
@@ -63,27 +64,37 @@ class QueryForm extends React.Component {
         }
     }
 
+    sendquery() {
+        var start = document.getElementById("origin").value;
+        var end = document.getElementById("destination").value;
+        var imporance = document.getElementById("slide").value;
+        var url = "http://54.172.173.217:8000/?start=" + start + "&end=" + end;
+        axios.post(url).then(res => {
+            console.log(res);
+            console.log(res.data);
+          });
+    }
+
     render() {
         const { classes } = this.props;
         return (
             <Card className={classes.card}>
                 <div className={classes.root}>
                     <InputBase
+                        id="origin"
                         className={classes.input}
                         placeholder="Enter your origin"
                         inputProps={{ 'aria-label': 'enter your origin' }}
                     />
-                    <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={() => console.log("I'm finding your destination! (but no....)")}>
-                        <SearchIcon />
-                    </IconButton>
                 </div>
                 <div className={classes.root}>
                     <InputBase
+                        id="destination"
                         className={classes.input}
                         placeholder="Enter your destination"
                         inputProps={{ 'aria-label': 'enter your destination' }}
                     />
-                    <IconButton color="primary" className={classes.iconButton} aria-label="directions" onClick={() => console.log("I'm routing! (Not really)")}>
+                    <IconButton color="primary" className={classes.iconButton} aria-label="directions" onClick={() => this.sendquery()}>
                         <DirectionsIcon />
                     </IconButton>
                 </div>
@@ -98,6 +109,7 @@ class QueryForm extends React.Component {
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             <Slider
+                                id="slide"
                                 className={classes.slider}
                                 defaultValue={0.50}
                                 aria-label="How important are elevation changes?"
