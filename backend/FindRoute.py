@@ -34,7 +34,7 @@ def get_path(origin, destination, weight, graph=None):
     caching the graph/map and loading it from disk.
         
     """
-    graph = ox.load_graphml("boston-elevation-graph") if graph=None else graph
+    graph = ox.load_graphml("boston-elevation-graph") if graph is None else graph
     opoint = ox.geocode(origin)
     dpoint = ox.geocode(destination)
     print(opoint)
@@ -47,9 +47,3 @@ def get_path(origin, destination, weight, graph=None):
                                        weight=weight_choice)
     fig, ax = ox.plot_graph_route(graph, route, node_size=0)
     return route
-
-get_path("1 Longfellow Place, Boston, MA, 02114", "139 Tremont St, Boston, MA 02108", 50)
-    
-    
-    
-    
