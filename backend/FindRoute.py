@@ -37,8 +37,7 @@ def get_path(origin, destination, weight, graph=None):
     o_node = ox.get_nearest_node(graph, tuple(reversed(opoint)))
     d_node = ox.get_nearest_node(graph, tuple(reversed(dpoint)))
     weight_choice = "elev{weight}".format(weight=weight)
-    route = nx.shortest_path(graph, source=o_node, target=d_node, 
-                                       weight=weight_choice)
+    route = nx.shortest_path(graph, source=o_node, target=d_node, weight=weight_choice)
     print(route)
     fig, ax = ox.plot_graph_route(graph, route, node_size=0)
     return route
