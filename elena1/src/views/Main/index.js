@@ -17,11 +17,12 @@ const styles = theme => ({
     //     right: theme.spacing(2),
     // }
 })
-class Main extends React.Component {
+export default class Main extends React.Component {
     render() {
         const { classes } = this.props;
+        console.log('creating main');
         return (
-            <div className={classes.root}>
+            <div /* className={classes.root} */>
                 <CustomMap />
                 {/* <Fab variant="extended" className={classes.fab}>
                     <NavigationIcon className={classes.extendedIcon} />
@@ -33,4 +34,4 @@ class Main extends React.Component {
     }
 }
 
-export default withStyles(styles)(Main);
+// export default withStyles(styles)(Main);
