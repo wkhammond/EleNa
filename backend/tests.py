@@ -22,7 +22,6 @@ class ModelTests(unittest.TestCase): #testing model loading + population
     def test_elevation_population(self):
         evals = nx.get_node_attributes(self.graph,'elevation')
         num_nodes = len(evals)
-        counter = 0
         num_valid_nodes = 0
         for node in evals:
             if (float(evals[node]) >= 0): #we include >= b/c nahant is coastal
@@ -52,23 +51,49 @@ class ModelTests(unittest.TestCase): #testing model loading + population
         
         self.assertTrue((e25 == e50) and (e50 == e75) and (e25 == e100))
     
-    def test_model_transitivity(self):
+    def test_route_getting(self):
+        origin = "150 Nahant Road, Nahant, Massachusetts, 01908"
+        destination = "200 Nahant Road, Nahant, Massachusetts, 01908"
+        route = FindRoute.get_path(origin, destination, 0, self.graph)
+        self.assertTrue((route is not None))
+    
+    
+class RoutingTests(unittest.TestCase): #testing our elevation weighing algo
+    
+    def setUp(self):
+        self.graph = ox.load_graphml("nahant-elevation-graph")
+    
+    def test_transitivity(self):
         origin = "150 Nahant Road, Nahant, Massachusetts, 01908"
         destination = "200 Nahant Road, Nahant, Massachusetts, 01908"
         route1 = FindRoute.get_path(origin, destination, 0, self.graph)
         route2 = FindRoute.get_path(destination, origin, 0, self.graph)
         route1.reverse()
-        print("routes:")
-        print(route1)
-        print(route2)
+       
+        self.assertTrue((route1 == route2)) 
+    
+    def test_route_efficacy(self):
+        origin = "40 Gardner Road, Nahant, Massachusetts, 01908"
+        destination = "2 Nautical Lane, Nahant, Massachusetts, 01908"
+        route25 = FindRoute.get_path(origin, destination, 25, self.graph)
+        route100 = FindRoute.get_path(origin, destination, 100, self.graph)
         
-        self.assertTrue((route1 == route2))
-    
-#class RoutingTests(unittest.TestCase): #testing our elevation weighing
-    
-                
+        print("route 25%: " + " ".join(map(str, route25)))
+        for node in route25:
+            print(route25[node])
+            total25 += float(route25[node]["elev25"])
+            
+        for node in route100:
+            total100 += float(route100[node]["elev100"])
+        
+        self.assertTrue((total100 >= total25))
+        
+        
+        
+        
 
-classes = [ModelTests]
+
+classes = [ModelTests, RoutingTests]
     
 if __name__ == '__main__':
     loads = unittest.TestLoader()
