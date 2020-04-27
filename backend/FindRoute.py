@@ -29,9 +29,6 @@ def get_path(origin, destination, weight, graph=None):
 
     Notes
     -----
-    Current implementation doesn't involve caching- so the model file will 
-    have to be generated every time we run this. Future versions will involve 
-    caching the graph/map and loading it from disk.
         
     """
     graph = ox.load_graphml("boston-elevation-graph") if graph is None else graph
