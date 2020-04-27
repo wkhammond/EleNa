@@ -32,11 +32,11 @@ def populate_graph(location):
     graph = set_elevation(graph)
     print("Done getting elevation")
     graph = ox.add_edge_grades(graph)
-    proj = ox.project_graph(graph) #project graph to UTM to increase accuracy
-    ox.save_graphml(proj, filename=location.split(" ")[0] + "-raw-elevation-graph")
+    #proj = ox.project_graph(graph) #project graph to UTM to increase accuracy
+    ox.save_graphml(graph, filename=location.split(" ")[0] + "-raw-elevation-graph")
     
     #here, we populate custom fields for our weighed inclines
-    for u, v, k, data in proj.edges(keys=True, data=True): 
+    for u, v, k, data in graph.edges(keys=True, data=True): 
         elevation_values = weight_function(data['grade_abs'], data['length'])
         data['elev0'] = elevation_values[0]
         data['elev25'] = elevation_values[1]
@@ -44,7 +44,7 @@ def populate_graph(location):
         data['elev75'] = elevation_values[3]
         data['elev100'] = elevation_values[4]
     
-    ox.save_graphml(proj, filename=location.split(" ")[0] + "-elevation-graph")
+    ox.save_graphml(graph, filename=location.split(" ")[0] + "-elevation-graph")
     
     
 def weight_function(rise, run):

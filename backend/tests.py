@@ -8,7 +8,7 @@ class ModelTests(unittest.TestCase): #testing model loading + population
     
     def setUp(self): 
         #load graph of nahant, smallest town in MA 
-        #generate_model.populate_graph("nahant massachusetts")
+        generate_model.populate_graph("nahant massachusetts")
         self.graph = ox.load_graphml("nahant-elevation-graph")
         #interconnectivity test only works with undirected graph
         self.undirected = self.graph.to_undirected()
