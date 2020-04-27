@@ -4,12 +4,12 @@ import FindRoute
 import networkx as nx
 import osmnx as ox
 
-classes = ["ModelGeneration"]
-
-class ModelGeneration(unittest.TestCase): #testing 
+class ModelTests(unittest.TestCase): #testing model loading + population
     
-    def setUp(self): #load graph of nahant, smallest town in MA 
-        self.graph = ox.load_graphml("boston-elevation-graph")
+    def setUp(self): 
+        #load graph of nahant, smallest town in MA 
+        #generate_model.populate_graph("nahant massachusetts")
+        self.graph = ox.load_graphml("nahant-elevation-graph")
         #interconnectivity test only works with undirected graph
         self.undirected = self.graph.to_undirected()
 
@@ -25,13 +25,61 @@ class ModelGeneration(unittest.TestCase): #testing
         counter = 0
         num_valid_nodes = 0
         for node in evals:
-            if (float(evals[node]) >= 0):
+            if (float(evals[node]) >= 0): #we include >= b/c nahant is coastal
                 num_valid_nodes += 1
         self.assertEqual(num_nodes, num_valid_nodes)
-                
+    
+    def test_elevation_weights_population(self):
+        e25 = nx.get_node_attributes(self.graph,'elev25')
+        e50 = nx.get_node_attributes(self.graph,'elev50')
+        e75 = nx.get_node_attributes(self.graph,'elev75')
+        e100 = nx.get_node_attributes(self.graph,'elev100')
         
+        e25c = 0 #counter variables
+        e50c = 0
+        e75c = 0
+        e100c = 0
+        
+        for node in e25:
+            if (float(e25[node]) >= 0): #we include >= b/c nahant is coastal
+                e25c += 1
+            if (float(e50[node]) >= 0): 
+                e50c += 1
+            if (float(e75[node]) >= 0):
+                e75c += 1
+            if (float(e100[node]) >= 0):
+                e100c += 1
+        
+        self.assertTrue((e25 == e50) and (e50 == e75) and (e25 == e100))
+    
+    def test_model_transitivity(self):
+        origin = "150 Nahant Road, Nahant, Massachusetts, 01908"
+        destination = "200 Nahant Road, Nahant, Massachusetts, 01908"
+        route1 = FindRoute.get_path(origin, destination, 0, self.graph)
+        route2 = FindRoute.get_path(destination, origin, 0, self.graph)
+        route1.reverse()
+        print("routes:")
+        print(route1)
+        print(route2)
+        
+        self.assertTrue((route1 == route2))
+    
+#class RoutingTests(unittest.TestCase): #testing our elevation weighing
+    
+                
+
+classes = [ModelTests]
     
 if __name__ == '__main__':
-    unittest.main()
+    loads = unittest.TestLoader()
+    runs = unittest.TextTestRunner()
+     
+    testing_suites = []
+    for test_class in classes:
+        suite = loads.loadTestsFromTestCase(test_class)
+        testing_suites.append(suite)
+        
+    suite = unittest.TestSuite(testing_suites)
+    runs.run(suite)
     
 
