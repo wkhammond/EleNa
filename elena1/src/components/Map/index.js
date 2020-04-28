@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import { Map, Marker, Popup, TileLayer, Polyline } from 'react-leaflet'
-import { Icon } from 'leaflet';
 import { withStyles } from '@material-ui/core/styles';
 import L from 'leaflet';
-import {
-    Card,
-    CardContent,
-    CardHeader,
-} from '@material-ui/core';
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -51,15 +45,12 @@ class CustomMap extends Component {
             lat: props.startPos ? props.startPos[0] : 42.360051,
             lng: props.startPos ? props.startPos[1] : -71.060512
         }
-        console.log(this.state)
     }
 
     render() {
         const { classes } = this.props;
-        console.log("haiiii")
 
         const position = [this.state.lat, this.state.lng];
-        // var polyline = L.polyline(this.state.coords, { color: 'red' }).addTo(map);
         return (
             <div>
                 <Map center={position} zoom={this.state.zoom} className={classes.map} ref={this.saveMap}>

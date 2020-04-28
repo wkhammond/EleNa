@@ -2,29 +2,17 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {
     Card,
-    CardContent,
-    CardHeader,
-    Button,
     IconButton,
-    Divider,
     InputBase,
-    Paper,
-    TextField,
     Typography,
     Slider,
     ExpansionPanelSummary,
     ExpansionPanel,
     ExpansionPanelDetails,
 } from '@material-ui/core';
-import width from '@material-ui/system';
 import DirectionsIcon from '@material-ui/icons/Directions';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import axios from 'axios'
-import { MapLayer } from 'react-leaflet';
-import L from 'leaflet';
-import {withLeaflet} from 'react-leaflet';
 
 const styles = theme => ({
     root: {
@@ -80,16 +68,14 @@ class QueryForm extends React.Component {
         const start = document.getElementById("origin").value;
         const end = document.getElementById("destination").value;
         const importance = this.state.sliderValue;
-        console.log(this.state);
+        // Change this URL to your localhost or new IP if/when the AWS server goes offline
         const url = "http://54.172.173.217:8000/?start=" + start + "&end=" + end + "&elev=" + importance;
         const finalurl = encodeURI(url);
         let nodes = [];
         nodes = await axios.get(finalurl);
-        console.log("nodes", nodes);
         nodes = nodes.data;
         let startPos = [parseFloat(nodes[0].x), parseFloat(nodes[0].y)];
         let destPos = [parseFloat(nodes[nodes.length-1].x), parseFloat(nodes[nodes.length-1].y)];
-        console.log(nodes);
         let newCoords = [];
         for (let i = 0; i < nodes.length - 1; i++){
             let node = {}
@@ -100,12 +86,10 @@ class QueryForm extends React.Component {
             node["to_long"] = parseFloat(nodes[i + 1].y);
             newCoords[i] = node;
         }
-        console.log(newCoords);
         this.state.setCoords(newCoords, startPos, destPos);
     }
 
     render() {
-        console.log("bai")
         const { classes } = this.props;
         return (
             <Card className={classes.card}>
@@ -143,7 +127,7 @@ class QueryForm extends React.Component {
                             <Slider
                                 className={classes.slider}
                                 defaultValue={0.50}
-                                //  aria-label="How important are elevation changes?"
+                                aria-label="How important are elevation changes?"
                                 step={0.25}
                                 marks
                                 min={0}

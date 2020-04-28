@@ -5,7 +5,6 @@ import Main from './views/Main'
 
 
 function App() {
-    console.log("rendering app")
     return (
         <Main/>
     );
