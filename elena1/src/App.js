@@ -1,12 +1,11 @@
 import React from 'react';
 import '../node_modules/leaflet/dist/leaflet.css';
 import './App.css';
-import logo from './logo.svg';
 import Main from './views/Main'
-import { Map, Marker, Popup, TileLayer, ZoomControl } from 'react-leaflet';
 
 
 function App() {
+    console.log("rendering app")
     return (
         <Main/>
     );

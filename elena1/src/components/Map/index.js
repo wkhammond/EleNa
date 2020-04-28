@@ -1,8 +1,6 @@
-import React, {Component} from 'react';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import React, { Component } from 'react';
+import { Map, Marker, Popup, TileLayer, Polyline } from 'react-leaflet'
 import { withStyles } from '@material-ui/core/styles';
-import Routing from '../RoutingMachine';
-import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import {
     Card,
     CardContent,
@@ -16,28 +14,24 @@ const styles = theme => ({
 })
 
 class CustomMap extends Component {
-    state = {
-        lat: 57.74,
-        lng: 11.94,
-        zoom: 13,
-        isMapInit: false
-    };
-    saveMap = map => {
-        this.map = map;
-        this.setState({
-          isMapInit: true
-        });
-      };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            coords: props.coords,
+            zoom: 13,
+            lat: 42.360051,
+            lng: -71.060512
+        }
+        console.log(this.state)
+    }
 
     render() {
         const { classes } = this.props;
-
-        const start = [42.360051, -71.060512];
-        const end = [42.358571, -71.061637];
-        const center = [42.356271, -71.062269]
+        console.log("haiiii")
 
         const position = [this.state.lat, this.state.lng];
-
+        // var polyline = L.polyline(this.state.coords, { color: 'red' }).addTo(map);
         return (
             <div>
                 <Map center={position} zoom={this.state.zoom} className={classes.map} ref={this.saveMap}>
@@ -45,7 +39,11 @@ class CustomMap extends Component {
                         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
                     />
-                    {this.state.isMapInit && <Routing map={this.map}/>}
+                    {this.state.coords.map(({ id, from_lat, from_long, to_lat, to_long }) => {
+                        return <Polyline key={id} positions={[
+                            [from_lat, from_long], [to_lat, to_long],
+                        ]} color={'red'} />
+                    })}
                 </Map>
             </div>
         );

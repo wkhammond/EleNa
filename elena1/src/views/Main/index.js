@@ -18,17 +18,29 @@ const styles = theme => ({
     // }
 })
 export default class Main extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            coords: []
+        }
+        this.setCoords = this.setCoords.bind(this)
+    }
+
+    setCoords(inCoords){
+        this.setState({
+            ...this.state,
+            coords: inCoords
+        });
+    }
+
     render() {
         const { classes } = this.props;
         console.log('creating main');
         return (
-            <div /* className={classes.root} */>
-                <CustomMap />
-                {/* <Fab variant="extended" className={classes.fab}>
-                    <NavigationIcon className={classes.extendedIcon} />
-                    Navigate
-                </Fab> */}
-                <QueryForm />
+            <div>
+                <CustomMap coords={this.state.coords} key={this.state.coords}/>
+                <QueryForm setCoords={this.setCoords} />
             </div>
         )
     }

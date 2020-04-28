@@ -61,22 +61,40 @@ class QueryForm extends React.Component {
     constructor(props) {
         super(props); // This line is always required to be the first line
         this.state = {
+            setCoords: props.setCoords
         }
     }
 
     sendquery() {
-        var start = document.getElementById("origin").value;
-        var end = document.getElementById("destination").value;
-        var importance = 50;
-        var url = "http://54.172.173.217:8000/?start=" + start + "&end=" + end + "&elev=" + importance;
-        var finalurl = encodeURI(url)
-        axios.get(finalurl).then(res => {
-            console.log(res);
-            console.log(res.data);
-          });
+        // var start = document.getElementById("origin").value;
+        // var end = document.getElementById("destination").value;
+        // var importance = 50;
+        // var url = "http://54.172.173.217:8000/?start=" + start + "&end=" + end + "&elev=" + importance;
+        // var finalurl = encodeURI(url)
+        // axios.get(finalurl).then(res => {
+        //     console.log(res);
+        //     console.log(res.data);
+        // });
+        this.state.setCoords([
+            {
+                from_lat: "42.360051",
+                from_long: "-71.060512",
+                id: "132512",
+                to_lat: "42.358571",
+                to_long: "-71.062269",
+            },
+            {
+                from_lat: "42.358571",
+                from_long: "-71.062269",
+                id: "132513",
+                to_lat: "42.356271",
+                to_long: "-71.062269",
+            }
+        ])
     }
 
     render() {
+        console.log("bai")
         const { classes } = this.props;
         return (
             <Card className={classes.card}>
@@ -106,7 +124,7 @@ class QueryForm extends React.Component {
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography className={classes.heading} style={{textAlign: "right"}}>{"How important are elevation changes?"}</Typography>
+                            <Typography className={classes.heading} style={{ textAlign: "right" }}>{"How important are elevation changes?"}</Typography>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             <Slider
