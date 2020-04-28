@@ -2,7 +2,7 @@
 
 Most traditional navigation apps aim to provide users with routes that prioritize shortest distance and/or time. However, for walkers and bikers, for whom elevation changes are important, this is not ideal. EleNa aims to remedy this by providing a route that prioritizes elevation changes at different user-selected intervals.
 
-![Picture of EleNa application](EleNa_application.PNG)
+![Picture of EleNa application](EleNa_application.png)
 
 ## Demo site
 
