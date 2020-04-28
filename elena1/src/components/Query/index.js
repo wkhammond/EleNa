@@ -64,36 +64,42 @@ class QueryForm extends React.Component {
     constructor(props) {
         super(props); // This line is always required to be the first line
         this.state = {
-            setCoords: props.setCoords
+            setCoords: props.setCoords,
+            sliderValue: 50
         }
     }
 
-    sendquery() {
-        // var start = document.getElementById("origin").value;
-        // var end = document.getElementById("destination").value;
-        // var importance = 50;
-        // var url = "http://54.172.173.217:8000/?start=" + start + "&end=" + end + "&elev=" + importance;
-        // var finalurl = encodeURI(url)
-        // axios.get(finalurl).then(res => {
-        //     console.log(res);
-        //     console.log(res.data);
-        // });
-        this.state.setCoords([
-            {
-                from_lat: "42.360051",
-                from_long: "-71.060512",
-                id: "132512",
-                to_lat: "42.358571",
-                to_long: "-71.062269",
-            },
-            {
-                from_lat: "42.358571",
-                from_long: "-71.062269",
-                id: "132513",
-                to_lat: "42.356271",
-                to_long: "-71.062269",
-            }
-        ])
+    updateSliderValue(newVal){
+        this.setState({
+            ...this.state,
+            sliderValue: newVal * 100
+        })
+    }
+
+    async sendquery() {
+        const start = document.getElementById("origin").value;
+        const end = document.getElementById("destination").value;
+        const importance = this.state.sliderValue;
+        console.log(this.state)
+        const url = "http://54.172.173.217:8000/?start=" + start + "&end=" + end + "&elev=" + importance;
+        const finalurl = encodeURI(url)
+        let nodes = []
+        nodes = await axios.get(finalurl)
+        console.log("nodes", nodes)
+        nodes = nodes.data
+        console.log(nodes)
+        let newCoords = [];
+        for (let i = 0; i < nodes.length - 1; i++){
+            let node = {}
+            node["from_lat"] = parseFloat(nodes[i].x);
+            node['from_long'] = parseFloat(nodes[i].y);
+            node["id"] = i;
+            node["to_lat"] = parseFloat(nodes[i + 1].x);
+            node["to_long"] = parseFloat(nodes[i + 1].y);
+            newCoords[i] = node;
+        }
+        console.log(newCoords)
+        this.state.setCoords(newCoords)
     }
 
     render() {
@@ -105,6 +111,7 @@ class QueryForm extends React.Component {
                     <InputBase
                         id="origin"
                         className={classes.input}
+                        defaultValue = "60 State Street, Boston, MA 02109"
                         placeholder="Enter your origin"
                         inputProps={{ 'aria-label': 'enter your origin' }}
                     />
@@ -113,6 +120,7 @@ class QueryForm extends React.Component {
                     <InputBase
                         id="destination"
                         className={classes.input}
+                        defaultValue = "160 State Street, Boston, MA 02109"
                         placeholder="Enter your destination"
                         inputProps={{ 'aria-label': 'enter your destination' }}
                     />
@@ -133,12 +141,13 @@ class QueryForm extends React.Component {
                             <Slider
                                 className={classes.slider}
                                 defaultValue={0.50}
-                                aria-label="How important are elevation changes?"
+                                //  aria-label="How important are elevation changes?"
                                 step={0.25}
                                 marks
                                 min={0}
                                 max={1}
                                 valueLabelDisplay="auto"
+                                onChange={(event, val) => this.updateSliderValue(val)}
                             />
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
