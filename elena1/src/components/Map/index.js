@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import { withStyles } from '@material-ui/core/styles';
 import Routing from '../RoutingMachine';
-import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import {
     Card,
     CardContent,

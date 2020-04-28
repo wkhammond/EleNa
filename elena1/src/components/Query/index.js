@@ -22,6 +22,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import axios from 'axios'
+import { MapLayer } from 'react-leaflet';
+import L from 'leaflet';
+import {withLeaflet} from 'react-leaflet';
 
 const styles = theme => ({
     root: {
@@ -65,6 +68,7 @@ class QueryForm extends React.Component {
     }
 
     sendquery() {
+        const { map } = this.props;
         var start = document.getElementById("origin").value;
         var end = document.getElementById("destination").value;
         var importance = 50;
