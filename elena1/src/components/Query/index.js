@@ -48,6 +48,7 @@ const styles = theme => ({
     }
 })
 
+// Query component that handles taking input from the user and calling the API
 class QueryForm extends React.Component {
     constructor(props) {
         super(props); // This line is always required to be the first line
@@ -68,7 +69,7 @@ class QueryForm extends React.Component {
         const start = document.getElementById("origin").value;
         const end = document.getElementById("destination").value;
         const importance = this.state.sliderValue;
-        // Change this URL to your localhost or new IP if/when the AWS server goes offline
+        // Change this URL to localhost or new IP if/when the AWS server goes offline
         const url = "http://54.172.173.217:8000/?start=" + start + "&end=" + end + "&elev=" + importance;
         const finalurl = encodeURI(url);
         let nodes = [];

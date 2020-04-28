@@ -3,8 +3,8 @@ import { Map, Marker, Popup, TileLayer, Polyline } from 'react-leaflet'
 import { withStyles } from '@material-ui/core/styles';
 import L from 'leaflet';
 
+// Fixes bug with Leaflet Markers
 delete L.Icon.Default.prototype._getIconUrl;
-
 L.Icon.Default.mergeOptions({
     iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
     iconUrl: require('leaflet/dist/images/marker-icon.png'),
@@ -33,6 +33,7 @@ const styles = theme => ({
     }
 })
 
+// Map component containing background map and route drawing
 class CustomMap extends Component {
 
     constructor(props) {

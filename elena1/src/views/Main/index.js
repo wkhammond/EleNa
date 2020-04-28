@@ -12,6 +12,7 @@ export default class Main extends React.Component {
         this.setCoords = this.setCoords.bind(this)
     }
 
+    // Allows communication between QueryForm and CustomMap
     setCoords(inCoords, startPos, destPos){
         this.setState({
             ...this.state,
