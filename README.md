@@ -8,7 +8,7 @@ Most traditional navigation apps aim to provide users with routes that prioritiz
 
 Our completed implementation can be found at http://elena-fear-and-loathing-in-520.s3-website-us-east-1.amazonaws.com/
 
-- DO NOT send more than one request at a time. The EC2 instance this is running on takes a little while to process, and will break if given more than one request at a time.
+- DO NOT send more than one request at a time. The EC2 instance this is running on takes a little while to process, and it doesn't have the ram/cpu to run multiple querries and as such will break if given more than one request at a time.
 
 NOTE: Due to hosting costs, this site will only be hosted through May 2020.
 
