@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Map, Marker, Popup, TileLayer, Polyline } from 'react-leaflet'
 import { withStyles } from '@material-ui/core/styles';
+<<<<<<< HEAD
+=======
+import Routing from '../RoutingMachine';
+>>>>>>> 839033928a754a77ff4d777835f742b6fb82d912
 import {
     Card,
     CardContent,
