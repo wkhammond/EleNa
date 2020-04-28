@@ -111,7 +111,7 @@ class QueryForm extends React.Component {
                     <InputBase
                         id="origin"
                         className={classes.input}
-                        defaultValue = "60 State Street, Boston, MA 02109"
+                        defaultValue = "181 Cambridge St, Boston, MA 02114"
                         placeholder="Enter your origin"
                         inputProps={{ 'aria-label': 'enter your origin' }}
                     />
