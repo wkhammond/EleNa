@@ -27,10 +27,12 @@ export default class Main extends React.Component {
         this.setCoords = this.setCoords.bind(this)
     }
 
-    setCoords(inCoords){
+    setCoords(inCoords, startPos, destPos){
         this.setState({
             ...this.state,
-            coords: inCoords
+            coords: inCoords,
+            start: startPos,
+            end: destPos 
         });
     }
 
@@ -39,7 +41,10 @@ export default class Main extends React.Component {
         console.log('creating main');
         return (
             <div>
-                <CustomMap coords={this.state.coords} key={this.state.coords}/>
+                <CustomMap 
+                    coords={this.state.coords} key={this.state.coords}
+                    startPos={this.state.start} destPos={this.state.end}
+                    />
                 <QueryForm setCoords={this.setCoords} />
             </div>
         )

@@ -80,14 +80,16 @@ class QueryForm extends React.Component {
         const start = document.getElementById("origin").value;
         const end = document.getElementById("destination").value;
         const importance = this.state.sliderValue;
-        console.log(this.state)
+        console.log(this.state);
         const url = "http://54.172.173.217:8000/?start=" + start + "&end=" + end + "&elev=" + importance;
-        const finalurl = encodeURI(url)
-        let nodes = []
-        nodes = await axios.get(finalurl)
-        console.log("nodes", nodes)
-        nodes = nodes.data
-        console.log(nodes)
+        const finalurl = encodeURI(url);
+        let nodes = [];
+        nodes = await axios.get(finalurl);
+        console.log("nodes", nodes);
+        nodes = nodes.data;
+        let startPos = [parseFloat(nodes[0].x), parseFloat(nodes[0].y)];
+        let destPos = [parseFloat(nodes[nodes.length-1].x), parseFloat(nodes[nodes.length-1].y)];
+        console.log(nodes);
         let newCoords = [];
         for (let i = 0; i < nodes.length - 1; i++){
             let node = {}
@@ -98,8 +100,8 @@ class QueryForm extends React.Component {
             node["to_long"] = parseFloat(nodes[i + 1].y);
             newCoords[i] = node;
         }
-        console.log(newCoords)
-        this.state.setCoords(newCoords)
+        console.log(newCoords);
+        this.state.setCoords(newCoords, startPos, destPos);
     }
 
     render() {
