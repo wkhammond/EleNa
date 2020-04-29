@@ -32,7 +32,7 @@ The Python-based back-end can be found in `backend/`. After installing the depen
 
 ## Authors
 
-## Written for CS 520: Theory of Software Engineering (Spring 2020)
+### Written for CS 520: Theory of Software Engineering (Spring 2020)
 
 - **Alex Vukovic** - *Back-end, Testing, Meme Dealer* - [Alex Vukovic](https://github.com/AVukovic)
 
@@ -40,4 +40,4 @@ The Python-based back-end can be found in `backend/`. After installing the depen
 
 - **Coleander Smith** - *Do-It-All, Integration, Fearless Leader* - [Cole Smith](https://github.com/Th3OnlyN00b)
 
-- **Will Hammond** - *Front-end, Documentation, Pun Weaver* - [Will Hammond](https://github.com/wkhammond)
+- **Willander Hammond** - *Front-end, Documentation, Pun Weaver* - [Will Hammond](https://github.com/wkhammond)
