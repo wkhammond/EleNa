@@ -56,13 +56,7 @@ class ModelTests(unittest.TestCase): #testing model loading + population
         destination = "200 Nahant Road, Nahant, Massachusetts, 01908"
         route = FindRoute.get_path(origin, destination, 0, self.graph)
         self.assertTrue((route is not None))
-    
-    
-class RoutingTests(unittest.TestCase): #testing our elevation weighing algo
-    
-    def setUp(self):
-        self.graph = ox.load_graphml("nahant-elevation-graph")
-    
+
     def test_transitivity(self):
         origin = "150 Nahant Road, Nahant, Massachusetts, 01908"
         destination = "200 Nahant Road, Nahant, Massachusetts, 01908"
@@ -71,22 +65,6 @@ class RoutingTests(unittest.TestCase): #testing our elevation weighing algo
         route1.reverse()
        
         self.assertTrue((route1 == route2)) 
-    
-    def test_route_efficacy(self):
-        origin = "40 Gardner Road, Nahant, Massachusetts, 01908"
-        destination = "2 Nautical Lane, Nahant, Massachusetts, 01908"
-        route25 = FindRoute.get_path(origin, destination, 25, self.graph)
-        route100 = FindRoute.get_path(origin, destination, 100, self.graph)
-        
-        print("route 25%: " + " ".join(map(str, route25)))
-        for node in route25:
-            print(route25[node])
-            total25 += float(route25[node]["elev25"])
-            
-        for node in route100:
-            total100 += float(route100[node]["elev100"])
-        
-        self.assertTrue((total100 >= total25))
         
         
         
